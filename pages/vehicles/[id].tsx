@@ -74,7 +74,7 @@ export default function VehicleView(props: Props) {
 			<Divider />
 			<h2>Vehicle Details</h2>
 			{vehicleInfoError && <Alert severity='error'>Failed to fetch vehicle information.</Alert>}
-			{vehicleInfo && <VehicleInfo vehicleInfo={vehicleInfo} loading={loading} />}
+			{!vehicleInfoError && <VehicleInfo vehicleInfo={vehicleInfo} loading={loading} />}
 			<Divider />
 			<h2>Services {vehicleServices && vehicleServices.communicationStatus === 'ACTIVE' ? on : off}</h2>
 			{vehicleServicesLoading && (
