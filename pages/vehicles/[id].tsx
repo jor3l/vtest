@@ -20,10 +20,11 @@ import getVehicleInfo from '../../queries/getVehicleInfo';
 import getVehicles from '../../queries/getVehicles';
 import getVehicleServices from '../../queries/getVehicleServices';
 import { VehicleType } from '../../types/VehicleType';
-import TimeAgo from 'react-timeago';
 
 import SensorsIcon from '@mui/icons-material/Sensors';
 import SensorsOffIcon from '@mui/icons-material/SensorsOff';
+import VehicleInfo from '../../components/VehicleInfo';
+import VehicleServices from '../../components/VehicleServices';
 
 interface Props {
 	setTitle: (title: string) => void;
@@ -58,84 +59,33 @@ export default function VehicleView(props: Props) {
 			setVehicle(vehicle);
 			setTitle(`${vehicle.name || 'Unnamed Vehicle'}'s detail view`);
 		}
-	}, [vehiclesList]);
+	}, [vehiclesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Box>
-			<Breadcrumbs aria-label='breadcrumb' mb={3}>
-				<Link color='inherit' href='/'>
-					Vehicles
-				</Link>
-				<Typography color='text.primary'>{vehicle ? vehicle.name : loading}</Typography>
-			</Breadcrumbs>
-			<h3>Vehicle Details</h3>
+			<Box mb={3}>
+				<Breadcrumbs aria-label='breadcrumb'>
+					<Link color='inherit' href='/'>
+						Vehicles
+					</Link>
+					<Typography color='text.primary'>{vehicle ? vehicle.name : loading}</Typography>
+				</Breadcrumbs>
+			</Box>
 			<Divider />
+			<h2>Vehicle Details</h2>
 			{vehicleInfoError && <Alert severity='error'>Failed to fetch vehicle information.</Alert>}
-			<Grid container columns={{ xs: 2, sm: 3, md: 3 }} spacing={3} mt={1} mb={5}>
-				<Grid item xs={1}>
-					<ListItemText primary={vehicleInfo ? vehicleInfo.brand : loading} secondary='Brand' />
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText
-						primary={vehicleInfo ? vehicleInfo.cassisSeries : loading}
-						secondary='Chassis Series'
-					/>
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText
-						primary={vehicleInfo ? vehicleInfo.chassisNumber : loading}
-						secondary='Chassis Number'
-					/>
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText
-						primary={vehicleInfo ? vehicleInfo.countryOfOperation : loading}
-						secondary='Country'
-					/>
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText
-						primary={vehicleInfo ? vehicleInfo.engineStatus : loading}
-						secondary='Engine Status'
-					/>
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText primary={vehicleInfo ? vehicleInfo.fleet : loading} secondary='Fleet' />
-				</Grid>
-				<Grid item xs={1}>
-					<ListItemText primary={vehicleInfo ? vehicleInfo.msidn : loading} secondary='Contact Number' />
-				</Grid>
-			</Grid>
-			<h3>Services {vehicleServices && vehicleServices.communicationStatus === 'ACTIVE' ? on : off}</h3>
+			{vehicleInfo && <VehicleInfo vehicleInfo={vehicleInfo} loading={loading} />}
 			<Divider />
+			<h2>Services {vehicleServices && vehicleServices.communicationStatus === 'ACTIVE' ? on : off}</h2>
 			{vehicleServicesLoading && (
 				<Box pt={5}>
 					<CircularProgress />
 				</Box>
 			)}
-			{vehicleServices && vehicleServices.services && (
-				<Grid container columns={{ xs: 1, sm: 3, md: 3 }} spacing={3} mt={1}>
-					{vehicleServices.services.map((service, index) => (
-						<Grid item key={index} xs={1}>
-							<ListItemText
-								primary={service.serviceName}
-								secondary={
-									<>
-										<b>Last Update:</b> <TimeAgo date={service.lastUpdate} />
-									</>
-								}
-							/>
-							<ListItemText
-								secondary={
-									<>
-										<b>Status:</b> {service.status}
-									</>
-								}
-							/>
-						</Grid>
-					))}
-				</Grid>
+			{vehicleServices && vehicleServices.communicationStatus !== 'ACTIVE' && (
+				<Alert severity='error'>The vehicle&apos;s communication system is not active.</Alert>
 			)}
+			{vehicleServices && vehicleServices.services && <VehicleServices services={vehicleServices.services} />}
 			{vehicleServicesError && <Alert severity='error'>Failed to fetch vehicle services.</Alert>}
 		</Box>
 	);

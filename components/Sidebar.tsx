@@ -27,12 +27,7 @@ export default function Sidebar() {
 						width: '100%',
 					}}
 				>
-					<List
-						style={{
-							width: '100%',
-							flexGrow: 1,
-						}}
-					>
+					<List>
 						<Link href='/'>
 							<ListItem>
 								<ListItemIcon>

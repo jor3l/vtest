@@ -1,36 +1,29 @@
-import { Button, Card, CardActions, CardContent, Grid, Skeleton, Zoom } from '@mui/material';
-import Link from 'next/link';
-import { VehicleType } from '../types/VehicleType';
+import { Grid, ListItemText } from '@mui/material';
 
-interface Props {
-	vehicle?: VehicleType;
-	skeleton?: boolean;
-}
-
-export default function VehicleInfo(props: Props) {
-	const { vehicle, skeleton } = props;
+export default function VehicleInfo({ vehicleInfo, loading }) {
 	return (
-		<Grid item xs={2} sm={2} md={2} style={{ height: '100%' }}>
-			{skeleton && (
-				<Card elevation={4}>
-					<CardContent>
-						<Skeleton variant='rectangular' animation='wave' />
-					</CardContent>
-					<CardActions>
-						<Skeleton variant='rectangular' animation='wave' />
-					</CardActions>
-				</Card>
-			)}
-			{vehicle && (
-				<Card elevation={4}>
-					<CardContent>{vehicle.name || 'Unnamed vehicle'}</CardContent>
-					<CardActions>
-						<Link href={`/vehicles/${vehicle.id}`}>
-							<Button size='small'>Explore</Button>
-						</Link>
-					</CardActions>
-				</Card>
-			)}
+		<Grid container columns={{ xs: 2, sm: 3, md: 3 }} spacing={3} mb={5}>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.brand : loading} secondary='Brand' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.cassisSeries : loading} secondary='Chassis Series' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.chassisNumber : loading} secondary='Chassis Number' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.countryOfOperation : loading} secondary='Country' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.engineStatus : loading} secondary='Engine Status' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.fleet : loading} secondary='Fleet' />
+			</Grid>
+			<Grid item xs={1}>
+				<ListItemText primary={vehicleInfo ? vehicleInfo.msidn : loading} secondary='Contact Number' />
+			</Grid>
 		</Grid>
 	);
 }

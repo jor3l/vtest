@@ -9,11 +9,13 @@ export default function Services(props: Props) {
 	const { setTitle } = props;
 	useEffect(() => {
 		setTitle('Services');
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
-			<Typography>No services active yet. Contact your administrator.</Typography>
+			<Typography>
+				There are no active services at this time. For more information, contact your administrator.
+			</Typography>
 		</>
 	);
 }
