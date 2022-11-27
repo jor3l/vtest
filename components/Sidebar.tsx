@@ -1,10 +1,16 @@
-import { Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
+import { Divider, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
 import GarageIcon from '@mui/icons-material/Garage';
 import CarRepairIcon from '@mui/icons-material/CarRepair';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Image from 'next/image';
 import volvoLogo from '../public/logo.png';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+function isSelected(paths: string[]) {
+	const router = useRouter();
+	return !!paths.includes(router.pathname);
+}
 
 export default function Sidebar() {
 	return (
@@ -29,20 +35,20 @@ export default function Sidebar() {
 				>
 					<List>
 						<Link href='/'>
-							<ListItem>
+							<ListItemButton selected={isSelected(['/', '/vehicles/[id]'])}>
 								<ListItemIcon>
 									<GarageIcon />
 								</ListItemIcon>
 								<ListItemText>Vehicles</ListItemText>
-							</ListItem>
+							</ListItemButton>
 						</Link>
 						<Link href='/services'>
-							<ListItem>
+							<ListItemButton selected={isSelected(['/services'])}>
 								<ListItemIcon>
 									<CarRepairIcon />
 								</ListItemIcon>
 								<ListItemText>Services</ListItemText>
-							</ListItem>
+							</ListItemButton>
 						</Link>
 					</List>
 				</Grid>
