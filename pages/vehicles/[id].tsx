@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Breadcrumbs,
 	Chip,
 	CircularProgress,
@@ -69,33 +70,42 @@ export default function VehicleView(props: Props) {
 			</Breadcrumbs>
 			<h3>Vehicle Details</h3>
 			<Divider />
-			<List style={{ paddingBottom: 0 }}>
-				<ListItem>
+			{vehicleInfoError && <Alert severity='error'>Failed to fetch vehicle information.</Alert>}
+			<Grid container columns={{ xs: 2, sm: 3, md: 3 }} spacing={3} mt={1} mb={5}>
+				<Grid item xs={1}>
 					<ListItemText primary={vehicleInfo ? vehicleInfo.brand : loading} secondary='Brand' />
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText
 						primary={vehicleInfo ? vehicleInfo.cassisSeries : loading}
 						secondary='Chassis Series'
 					/>
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText
 						primary={vehicleInfo ? vehicleInfo.chassisNumber : loading}
 						secondary='Chassis Number'
 					/>
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText
 						primary={vehicleInfo ? vehicleInfo.countryOfOperation : loading}
 						secondary='Country'
 					/>
-				</ListItem>
-			</List>
-			<List style={{ padding: 0 }}>
-				<ListItem>
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText
 						primary={vehicleInfo ? vehicleInfo.engineStatus : loading}
 						secondary='Engine Status'
 					/>
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText primary={vehicleInfo ? vehicleInfo.fleet : loading} secondary='Fleet' />
+				</Grid>
+				<Grid item xs={1}>
 					<ListItemText primary={vehicleInfo ? vehicleInfo.msidn : loading} secondary='Contact Number' />
-				</ListItem>
-			</List>
+				</Grid>
+			</Grid>
 			<h3>Services {vehicleServices && vehicleServices.communicationStatus === 'ACTIVE' ? on : off}</h3>
 			<Divider />
 			{vehicleServicesLoading && (
@@ -103,8 +113,8 @@ export default function VehicleView(props: Props) {
 					<CircularProgress />
 				</Box>
 			)}
-			{vehicleServices && (
-				<Grid container columns={3} spacing={3} mt={1}>
+			{vehicleServices && vehicleServices.services && (
+				<Grid container columns={{ xs: 1, sm: 3, md: 3 }} spacing={3} mt={1}>
 					{vehicleServices.services.map((service, index) => (
 						<Grid item key={index} xs={1}>
 							<ListItemText
@@ -126,6 +136,7 @@ export default function VehicleView(props: Props) {
 					))}
 				</Grid>
 			)}
+			{vehicleServicesError && <Alert severity='error'>Failed to fetch vehicle services.</Alert>}
 		</Box>
 	);
 }
