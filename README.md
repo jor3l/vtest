@@ -1,8 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+This is a NextJS app, run it with:
 
 ```bash
 npm run dev
@@ -12,23 +10,34 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Set the .env API_HOST to the correct one for your Mockoon server.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Screenshots
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Vehicles List
 
-## Learn More
+![vehicles_list.png](./vehicles_list.png?raw=true 'Vehicles List')
 
-To learn more about Next.js, take a look at the following resources:
+### Vehicle View
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![vehicle_view.png](./vehicle_view.png?raw=true 'Vehicle View')
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Vehicle View loading
 
-## Deploy on Vercel
+![vehicle_loading.png](./vehicle_loading.png?raw=true 'Vehicle View loading')
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vehicle view with no services
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![vehicles_without_services.png](./vehicle_without_services.png?raw=true 'Vehicle view with no services')
+
+### Vehicle view with errors
+
+![vehicle_errors.png](./vehicle_errors.png?raw=true 'Vehicle View with errors')
+
+### Vehicle view on mobile
+
+![vehicle_mobile.png](./vehicle_mobile.png?raw=true 'Vehicle View on mobile')
+
+### Sidebar on mobile
+
+![sidebar_mobile.png](./sidebar_mobile.png?raw=true 'Sidebar on mobile')
